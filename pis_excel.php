@@ -46,6 +46,7 @@ if(isset($_SESSION['pis_mode']) && $_SESSION['pis_mode'] != '')
 $Query = "SELECT * FROM pis_master ".$where.$OrderBY.$Limit;
 $selTransaction = mysql_query($Query);
 //echo "SELECT * FROM installment_master WHERE is_deleted=0 ".$where." ORDER BY id DESC";
+// echo checking github
 $numTransaction = mysql_num_rows($selTransaction);
 		
 		$header .= "PIS Number"."\t";

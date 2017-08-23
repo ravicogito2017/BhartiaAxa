@@ -2797,15 +2797,12 @@ function calculatedPremium(val){
 
 
 
-<?php if(isset($_SESSION[ROLE_ID]) && ($_SESSION[ROLE_ID] == '1')) // Superadmin Preliminary Edit
+<?php 
+             // Superadmin Preliminary Edit
+             if(isset($_SESSION[ROLE_ID]) && ($_SESSION[ROLE_ID] == '1')) {
 
-
-
-		{
-
-	?>
-
-			<tr> 
+?>
+           <tr> 
 
 			  <td colspan="3" style="padding-left: 70px;" align="left"><b><font color="#ff0000">Preliminary Edit</font></b></td>
 

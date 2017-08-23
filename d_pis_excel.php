@@ -32,7 +32,6 @@ if(isset($_SESSION['branch_name']) && $_SESSION['branch_name'] != '')
 	$where.=" AND branch_id='".$_SESSION['branch_name']."'";
 }
 */
-//Code
 if(isset($_SESSION['branch_name_id']) && $_SESSION['branch_name_id'] != '') 
 	{
 		$where.= ' AND branch_id="'.$_SESSION['branch_name_id'].'"';

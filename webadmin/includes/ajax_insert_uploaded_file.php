@@ -689,7 +689,14 @@ $upload_file 				= $_POST['file'];
 		$AADHAAR_NO	   ='';  
 	  }
 	  
-		
+		$query 	= mysql_query("select hub_id from admin where branch_code = '".$BRANCH_CODE."'");
+		$get_hub_id	= mysql_fetch_array($query);
+		if(!empty($get_hub_id)){
+			$hub_id		= $get_hub_id['hub_id'];			
+		}
+		else{
+			$hub_id =0;
+		}
 		$sql="INSERT INTO installment_master_branch SET
 						business_date='$business_date',
 						type_of_business='$type_of_business',
@@ -789,11 +796,8 @@ $upload_file 				= $_POST['file'];
 						PROPOSER_ID_PROOF='$PROPOSER_ID_PROOF',
 						PROPOSER_ADDRESS_PROOF='$PROPOSER_ADDRESS_PROOF',
 						insured_address='$insured_address'";
-
-
-
-		
-		//echo $sql;//exit;
+						
+					if(!empty($BRANCH_SUB_CODE)){
 						if($role_id == 1)
 						{
 							$qry	=	mysql_query($sql);
@@ -821,7 +825,11 @@ $upload_file 				= $_POST['file'];
 							
 						}
 							
-						/**/
+					}
+					else{
+							echo "Data Is Not Entered, As Branch Sub Code Is Missing";	
+						
+					}
 		
 	}
 

@@ -235,10 +235,9 @@ function find_customer_id_through_id($id)
 		$cust_id = $getCustomerID['customer_id'];
 	}
 	return $cust_id;
-}
+}function get_branch_name($branch_sub_code){	$branch_name = '';	$selBranchData = mysql_query("SELECT branch_name FROM admin WHERE branch_code='".$branch_sub_code."'");	$numBranchData = mysql_num_rows($selBranchData);	if($numBranchData > 0)	{		$getBranchData = mysql_fetch_array($selBranchData);				$branch_name = $getBranchData['branch_name'];	}	return $branch_name;}
 
-function find_branch_name($branch_id)
-{
+function find_branch_name($branch_id){
 	$branch_name = '';
 	$selBranchData = mysql_query("SELECT branch_name FROM admin WHERE id='".$branch_id."'");
 	$numBranchData = mysql_num_rows($selBranchData);

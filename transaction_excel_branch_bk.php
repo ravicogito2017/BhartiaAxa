@@ -279,136 +279,396 @@ $numTransaction = mysql_num_rows($selTransaction);
 				{
 					$line .= "Yes"."\t";
 				}
-				$line .= "'".$getTransaction['pre_printed_receipt_no']."\t";
-				$line .= find_branch_name($getTransaction['branch_id'])."\t";
-				$line .= $getTransaction['branch_code']."\t";
-				
-				$line .= stripslashes($getTransaction['plan_name'])."\t";   
-				$business_date = '';
-				if($getTransaction['business_date'] != '0000-00-00'){
-					$business_date = date('d/m/Y',strtotime($getTransaction['business_date']));
-				}
-				$line .= $business_date."\t";
-                                $line .= stripslashes($getTransaction['applicant_name'])."\t";
-                                
-                                $mode = '';
-								$mode=receive_mode($getTransaction['receive_cash'],$getTransaction['receive_cheque'],$getTransaction['receive_draft']); 
-								
-								$line .= $mode."\t";
-                                $line .= $getTransaction['receive_cash']."\t";
-								
-                                $line .= $getTransaction['receive_cheque']."\t";
-								$line .= $getTransaction['receive_draft']."\t";
-								                                
-                                $line .= $getTransaction['premium']."\t";
-                                $line .= $getTransaction['term']."\t";		
-								$line .= $getTransaction['premium_paying_term']."\t";		
-				$line .= $getTransaction['sum_asured']."\t";                       
-                                
-                                
-				$line .= $getTransaction['type_of_business']."\t";				
-				$line .= "'".$getTransaction['agent_code']."\t";				
-				$line .= "'".$getTransaction['cash_money_receipt']."\t";
-                                
-                                
-				$line .= "'".$getTransaction['cheque_money_receipt']."\t";
-				$line .= "'".$getTransaction['draft_money_receipt']."\t";				
-				$applicant_dob = '';
-				if($getTransaction['applicant_dob'] != '0000-00-00'){
-					$applicant_dob = date('d/m/Y',strtotime($getTransaction['applicant_dob']));
-				}
-				$line .= $applicant_dob."\t";
-                                
-                                
-                                
-				$line .= $getTransaction['applicant_age']."\t";
-				$line .= stripslashes($getTransaction['insured_name'])."\t";
-				$insured_dob = '';
-				if(($getTransaction['insured_dob'] != '0000-00-00') && ($getTransaction['insured_dob'] != '')){
-					$insured_dob = date('d/m/Y',strtotime($getTransaction['insured_dob']));
-				}
-				$line .= $insured_dob."\t";
-                                
-                                
-				$line .= $getTransaction['insured_age']."\t";
-				$line .= stripslashes($getTransaction['insured_height'])."\t";
-				$line .= stripslashes($getTransaction['insured_weight'])."\t";
-				$line .= stripslashes($getTransaction['gender'])."\t";
-				$line .= find_age_proof($getTransaction['insured_age_proof'])."\t";
-                $line .= stripslashes($getTransaction['insured_address1'])."\t";
-				$line .= stripslashes($getTransaction['insured_address2'])."\t";
-				$line .= stripslashes($getTransaction['insured_address3'])."\t";
-				$line .= stripslashes($getTransaction['nominee_name'])."\t";
-                                
-                                
-				$line .= stripslashes($getTransaction['nominee_relationship'])."\t";
-				$nominee_dob = '';
-				if($getTransaction['nominee_dob'] != '0000-00-00'){
-					$nominee_dob = date('d/m/Y',strtotime($getTransaction['nominee_dob']));
-				}
-				$line .= $nominee_dob."\t";
-				$line .= $getTransaction['nominee_age']."\t";
-                                
-                                
-				$line .= stripslashes($getTransaction['appointee_name'])."\t";
-				$line .= stripslashes($getTransaction['appointee_relationship'])."\t";
-				$appointee_dob = '';
-				if($getTransaction['appointee_dob'] != '0000-00-00'){
-					$appointee_dob = date('d/m/Y',strtotime($getTransaction['appointee_dob']));
-				}
-				$line .= $appointee_dob."\t";
-                                
-				$line .= $getTransaction['appointee_age']."\t";
-				$line .= stripslashes($getTransaction['office_name'])."\t";
-				$line .= stripslashes($getTransaction['office_address1'])."\t";
-				$line .= stripslashes($getTransaction['office_address2'])."\t";
-				$line .= stripslashes($getTransaction['office_address3'])."\t";
-				$line .= $getTransaction['office_teephone_no']."\t";
-				$line .= stripslashes($getTransaction['nature_of_duty'])."\t";
-				
-				                                	
-				$line .= payment_mode_name($getTransaction['pay_mode'])."\t";
-				
-				if($getTransaction['receive_cheque']>0)
-				{				
-					$line .= "'".$getTransaction['cheque_no']."\t";
-					$cheque_date = '';
-					if(($getTransaction['cheque_date'] != '0000-00-00') && ($getTransaction['cheque_date'] != '1970-01-01')){
-						$cheque_date = date('d/m/Y',strtotime($getTransaction['cheque_date']));
-					}
-					$line .= $cheque_date."\t";
-									
-									
-					$line .= $getTransaction['cheque_bank_name']."\t";
-					$line .= $getTransaction['cheque_branch_name']."\t";
+				if(!empty($getTransaction['pre_printed_receipt_no']){
+					$line .= $getTransaction['pre_printed_receipt_no']."\t";
 				}
 				else
-				{				
-					$line .= "'".$getTransaction['dd_no']."\t";
-							   
-					$dd_date = '';
-					if(($getTransaction['dd_date'] != '0000-00-00') && ($getTransaction['dd_date'] != '1970-01-01')){
-						$dd_date = date('d/m/Y',strtotime($getTransaction['dd_date']));
+				{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['branch_id']){
+					$line .= find_branch_name($getTransaction['branch_id'])."\t";
+				}
+				else
+				{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['branch_code']){
+					$line .= $getTransaction['branch_code']."\t";
+				}
+				else
+				{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['plan_name']){
+					$line .= stripslashes($getTransaction['plan_name'])."\t";
+				}
+				else
+				{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['business_date']){
+					$business_date = '';
+					if($getTransaction['business_date'] != '0000-00-00'){
+						$business_date = date('d/m/Y',strtotime($getTransaction['business_date']));
+						$line .= $business_date."\t";
 					}
-					$line .= $dd_date."\t";
-					$line .= $getTransaction['dd_bank_name']."\t";
-					$line .= $getTransaction['dd_branch_name']."\t";
+				}
+				else
+				{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['applicant_name']){
+					$line .= stripslashes($getTransaction['applicant_name'])."\t";
+                }
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['receive_cash']) || $getTransaction['receive_cheque'] || $getTransaction['receive_draft']){
+					$mode = '';
+					$mode=receive_mode($getTransaction['receive_cash'],$getTransaction['receive_cheque'],$getTransaction['receive_draft']); 
+					$line .= $mode."\t";
+				}
+				else{					
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['applicant_name']){
+					$line .= $getTransaction['receive_cash']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+                if(!empty($getTransaction['receive_cheque']){
+					$line .= $getTransaction['receive_cheque']."\t";
+				}
+				else{					
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['receive_draft']){
+					$line .= $getTransaction['receive_draft']."\t";
+				}
+				else{					
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['premium']){
+					$line .= $getTransaction['premium']."\t";
+				}
+				else{					
+					$line .= ""."\t";
+				}
+                if(!empty($getTransaction['premium']){
+					$line .= $getTransaction['term']."\t";
+				}
+				else{					
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['premium_paying_term']){
+					$line .= $getTransaction['premium_paying_term']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['sum_asured']){
+					
+					$line .= $getTransaction['sum_asured']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}                       
+                if(!empty($getTransaction['type_of_business']){        
+                        
+					$line .= $getTransaction['type_of_business']."\t";		
+
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['agent_code']){ 
+					$line .= $getTransaction['agent_code']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['agent_name ']){ 
+					$line .= $getTransaction['agent_name ']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['cash_money_receipt ']){
+					$line .= $getTransaction['cash_money_receipt']."\t";
+                }               
+                else{
+					$line .= ""."\t";
+				}  
+				if(!empty($getTransaction['cheque_money_receipt ']){
+					$line .= $getTransaction['cheque_money_receipt']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['draft_money_receipt']){
+					$line .= $getTransaction['draft_money_receipt']."\t";	
+				}
+				else{
+					$line .= ""."\t";
+				}	
+				if(!empty($getTransaction['applicant_dob']){	
+					$applicant_dob = '';
+					if($getTransaction['applicant_dob'] != '0000-00-00'){
+					$applicant_dob = date('d/m/Y',strtotime($getTransaction['applicant_dob']));
+					}
+					$line .= $applicant_dob."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+                if(!empty($getTransaction['applicant_age']){                
+                               
+					$line .= $getTransaction['applicant_age']."\t";					
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_name']){
+					$line .= stripslashes($getTransaction['insured_name'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_dob']){
+					$insured_dob = '';
+					if(($getTransaction['insured_dob'] != '0000-00-00') && ($getTransaction['insured_dob'] != '')){
+						$insured_dob = date('d/m/Y',strtotime($getTransaction['insured_dob']));
+					}
+					$line .= $insured_dob."\t";
                 }                
-                                
-				$line .= find_place_name($getTransaction['state_id'])."\t";
-				$line .= $getTransaction['pin']."\t";
-				$line .= $getTransaction['telephone_no']."\t";
-                                
-                                
-				$line .= stripslashes($getTransaction['occupation'])."\t";
-				$line .= stripslashes($getTransaction['education_qualification'])."\t";
-				$line .= stripslashes($getTransaction['anual_income'])."\t";
-                                
-                                
-				$line .= find_age_proof($getTransaction['identity_proof'])."\t";
-				$line .= find_address_proof($getTransaction['address_proof'])."\t";
-                                
-                                
+                else{
+					$line .= ""."\t";
+				} 
+				if(!empty($getTransaction['insured_age']){	
+					$line .= $getTransaction['insured_age']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_height']){				
+					$line .= stripslashes($getTransaction['insured_height'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_weight']){
+					$line .= stripslashes($getTransaction['insured_weight'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['gender']){
+					$line .= stripslashes($getTransaction['gender'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_age_proof']){
+					$line .= find_age_proof($getTransaction['insured_age_proof'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_address1']){
+					$line .= stripslashes($getTransaction['insured_address1'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_address2']){
+					$line .= stripslashes($getTransaction['insured_address2'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['insured_address3']){
+					$line .= stripslashes($getTransaction['insured_address3'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['nominee_name']){
+					$line .= stripslashes($getTransaction['nominee_name'])."\t";
+                }                
+                else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['nominee_relationship']){	
+					$line .= stripslashes($getTransaction['nominee_relationship'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['nominee_dob']){	
+					$nominee_dob = '';
+					if($getTransaction['nominee_dob'] != '0000-00-00'){
+					$nominee_dob = date('d/m/Y',strtotime($getTransaction['nominee_dob']));
+					}
+					$line .= $nominee_dob."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['nominee_age']){
+					$line .= $getTransaction['nominee_age']."\t";
+                }                
+                else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['appointee_name']){	
+					$line .= stripslashes($getTransaction['appointee_name'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['appointee_relationship']){
+					$line .= stripslashes($getTransaction['appointee_relationship'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['appointee_dob']){
+					$appointee_dob = '';
+					if($getTransaction['appointee_dob'] != '0000-00-00'){
+						$appointee_dob = date('d/m/Y',strtotime($getTransaction['appointee_dob']));
+					}
+					$line .= $appointee_dob."\t";
+                }
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['appointee_age']){	
+					$line .= $getTransaction['appointee_age']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_name']){
+					$line .= stripslashes($getTransaction['office_name'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_address1']){
+					$line .= stripslashes($getTransaction['office_address1'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_address2']){
+					$line .= stripslashes($getTransaction['office_address2'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_address2']){
+					$line .= stripslashes($getTransaction['office_address3'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_teephone_no']){
+					$line .= $getTransaction['office_teephone_no']."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['office_teephone_no']){
+					$line .= stripslashes($getTransaction['nature_of_duty'])."\t";
+				}
+				else{
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['pay_mode']){
+					$line .= payment_mode_name($getTransaction['pay_mode'])."\t";
+				}
+				if(!empty($getTransaction['receive_cheque']){
+					if($getTransaction['receive_cheque']>0)
+					{				
+						$line .= "'".$getTransaction['cheque_no']."\t";
+						$cheque_date = '';
+						if(($getTransaction['cheque_date'] != '0000-00-00') && ($getTransaction['cheque_date'] != '1970-01-01')){
+							$cheque_date = date('d/m/Y',strtotime($getTransaction['cheque_date']));
+						}
+						$line .= $cheque_date."\t";
+										
+										
+						$line .= $getTransaction['cheque_bank_name']."\t";
+						$line .= $getTransaction['cheque_branch_name']."\t";
+					}
+					else
+					{				
+						$line .= "'".$getTransaction['dd_no']."\t";
+								   
+						$dd_date = '';
+						if(($getTransaction['dd_date'] != '0000-00-00') && ($getTransaction['dd_date'] != '1970-01-01')){
+							$dd_date = date('d/m/Y',strtotime($getTransaction['dd_date']));
+						}
+						$line .= $dd_date."\t";
+						$line .= $getTransaction['dd_bank_name']."\t";
+						$line .= $getTransaction['dd_branch_name']."\t";
+					}                
+				}
+				else{
+					$line .= ""."\t";
+					$line .= ""."\t";
+					$line .= ""."\t";
+				}
+				if(!empty($getTransaction['state_id']){
+					$line .= find_place_name($getTransaction['state_id'])."\t";
+				}
+				else{
+					$line .= ""."\t";					
+				}
+				if(!empty($getTransaction['pin']){
+					$line .= $getTransaction['pin']."\t";
+				}
+				else{
+					$line .= ""."\t";					
+				}
+				if(!empty($getTransaction['telephone_no']){
+					$line .= $getTransaction['telephone_no']."\t";
+                }                
+                else{
+					$line .= ""."\t";					
+				} 
+				if(!empty($getTransaction['occupation']){
+					$line .= stripslashes($getTransaction['occupation'])."\t";
+				}
+				else{
+					$line .= ""."\t";					
+				}
+				if(!empty($getTransaction['education_qualification']){
+					$line .= stripslashes($getTransaction['education_qualification'])."\t";
+				}
+				else{
+					$line .= ""."\t";					
+				}
+				if(!empty($getTransaction['anual_income']){
+					$line .= stripslashes($getTransaction['anual_income'])."\t";
+                }                
+                else{
+					$line .= ""."\t";					
+				} 
+				if(!empty($getTransaction['identity_proof']){
+					$line .= find_age_proof($getTransaction['identity_proof'])."\t";
+				}
+				else{
+					$line .= ""."\t";					
+				}
+				if(!empty($getTransaction['address_proof']){
+					$line .= find_address_proof($getTransaction['address_proof'])."\t";
+                }                
+                else{
+					$line .= ""."\t";					
+				}                
 				$data .= trim($line)."\n";
 				$nominee_address1 = '';
 				$nominee_address2 = '';

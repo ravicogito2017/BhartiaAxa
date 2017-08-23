@@ -363,25 +363,25 @@ $_SESSION['LIST_PAGE'][$GLOBALS['p']] = array(
 		<td colspan="28"><input type="submit" name="btnUpdate" value="Update" class="inplogin"></td>
 	</tr>
     <tr> 
-			<td width="8%" align="center" valign="top" class="tbllogin">SP Details</td>						<?php if($_SESSION[ROLE_ID] == '4'){ ?>    			<td width="8%" align="center" valign="top" class="tbllogin">Branch Scaned & Despatch</td>			<?php } ?>						<td width="8%" align="center" valign="top" class="tbllogin">PIS Generated</td> 
-			<td width="8%" align="center" valign="top" class="tbllogin">Application Number</td>
-			<td width="8%" align="center" valign="top" class="tbllogin">Pre Printed Receipt No </td> 
+			<td width="8%" align="center" valign="top" class="tbllogin">SP Details</td>
+			<?php if($_SESSION[ROLE_ID] == '4'){ ?><td width="8%" align="center" valign="top" class="tbllogin">Branch Scaned & Despatch</td><?php } ?>						
+			<td width="8%" align="center" valign="top" class="tbllogin">PIS Generated</td> 
+			<td width="8%" align="center" valign="top" class="tbllogin">Business Date</td>
 			<td width="8%" align="center" valign="top" class="tbllogin">Branch Name</td>
-			<td width="8%" align="center" valign="top" class="tbllogin">Plan Name</td>
-			<td width="8%" align="center" valign="top" class="tbllogin">Business Date</td>			
-			<td width="16%" align="center" valign="top" class="tbllogin">Applicant Name</td>
-			
-			<td width="8%" align="center" valign="top" class="tbllogin">Receive Cash</td>
-			<td width="8%" align="center" valign="top" class="tbllogin">Receive Cheque</td>
-			<td width="8%" align="center" valign="top" class="tbllogin">Receive Draft</td>
-			
-			<td width="8%" align="center" valign="top" class="tbllogin">Premium Amount</td>
-			
-			<td width="8%" align="center" valign="top" class="tbllogin">Term (Years)</td>
-			
-			
-			<td width="8%" align="center" valign="top" class="tbllogin">Sum Assured</td>
-			
+			<td width="8%" align="center" valign="top" class="tbllogin">CAMPAIGN</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">ASTHA BRANCH</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">E-APP NO</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">PRE PINTED RECEIPT NO</td> 
+			<td width="8%" align="center" valign="top" class="tbllogin">PROPOSER NAME</td> 
+			<td width="8%" align="center" valign="top" class="tbllogin">Plan</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">PREMIUM PAYING TERM</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">TERM (Years)</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">SUM ASSURED</td>	
+			<td width="8%" align="center" valign="top" class="tbllogin">PAYMENT MODE</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">RECEIVE CASH</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">RECEIVE CHEQUE</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">RECEIVE DRAFT</td>
+			<td width="8%" align="center" valign="top" class="tbllogin">PREMIUM AMOUNT</td>			
 			<?php if($_SESSION[ROLE_ID] == '1' || $_SESSION[ROLE_ID] == '4'){ ?>
 			<td width="8%" align="center" valign="top" class="tbllogin">Edit</td>
 			<?php }
@@ -403,34 +403,54 @@ $_SESSION['LIST_PAGE'][$GLOBALS['p']] = array(
 		 }
 			$mysql_id = $rs[$i]['id'];
 			
-			$branch_name = find_branch_name($rs[$i]['branch_id']);
+			$branch_name = get_branch_name($rs[$i]['BRANCH_SUB_CODE']);
 			
 ?>
-	<tr> 			<td width="8%" align="center" valign="top" >				<div><?php if($rs[$i]['sp_name'] != ""){ echo $rs[$i]['sp_name']; }else{ echo ""; } ?></div>				<a href="javascript:void(0)" onclick="javascript:popUp('<?php echo URL; ?>webadmin/sp_details.php?id=<?php echo base64_encode($mysql_id); ?>')">Edit</a>			</td>						<?php if($_SESSION[ROLE_ID] == '4'){ ?>						<td width="8%" align="center" valign="top" >				<?php     				if($rs[$i]['payment_mode'] == 'CHEQUE' && ($rs[$i]['cheque_pis_id'] != '0' || $rs[$i]['cash_pis_id'] != '0') && $rs[$i]['sp_name'] != ""){					?>					<input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					<?php				}elseif($rs[$i]['payment_mode'] == 'DD' && ($rs[$i]['dd_pis_id'] != '0' || $rs[$i]['cash_pis_id'] != '0') && $rs[$i]['sp_name'] != ""){					?>					<input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					<?php				}elseif($rs[$i]['payment_mode'] == 'CASH' && $rs[$i]['cash_pis_id'] != '0' && $rs[$i]['sp_name'] != ""){					?>					<input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					<?php				}elseif($rs[$i]['dd_pis_id'] == '0' && $rs[$i]['cash_pis_id'] == '0' && $rs[$i]['cheque_pis_id'] == '0' && $rs[$i]['sp_name'] == ""){					echo "PIS not generated";				}elseif($rs[$i]['sp_name'] == ""){					echo "SP Details Empty";				}        				?>			</td>						<?php } ?>						<td width="8%" align="center" valign="top" >			<?php if($rs[$i]['cash_pis_id']=='0' && $rs[$i]['cheque_pis_id']=='0' && $rs[$i]['cash_pis_id']=='0')				{					echo "No";				}				else				{					echo "Yes";				}						 ?><br />									</td>
+	<tr> 			
 			<td width="8%" align="center" valign="top" >
-			<?php echo $rs[$i]['application_no']; ?><br />
-						
-			</td>
+				<div><?php if($rs[$i]['sp_name'] != ""){ echo $rs[$i]['sp_name']; }else{ echo ""; } ?></div>
+				<a href="javascript:void(0)" onclick="javascript:popUp('<?php echo URL; ?>webadmin/sp_details.php?id=<?php echo base64_encode($mysql_id); ?>')">Edit</a>		
+			</td>					
+			<?php if($_SESSION[ROLE_ID] == '4'){ ?>						
+				<td width="8%" align="center" valign="top">				
+				<?php     				
+				if($rs[$i]['payment_mode'] == 'CHEQUE' && ($rs[$i]['cheque_pis_id'] != '0' || $rs[$i]['cash_pis_id'] != '0') && $rs[$i]['sp_name'] != ""){?>					
+				<input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					
+				<?php }
+				elseif($rs[$i]['payment_mode'] == 'DD' && ($rs[$i]['dd_pis_id'] != '0' || $rs[$i]['cash_pis_id'] != '0') && $rs[$i]['sp_name'] != ""){?>					
+				<input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					
+				<?php				
+				}elseif($rs[$i]['payment_mode'] == 'CASH' && $rs[$i]['cash_pis_id'] != '0' && $rs[$i]['sp_name'] != ""){					
+				?><input type="checkbox" name="branch_scan[]" value="<?php echo $mysql_id; ?>" <?php if($rs[$i]['branch_scan'] == '1'){ echo 'checked disabled="disabled"';}else{ echo '';} ?>>					
+				<?php }
+				elseif($rs[$i]['dd_pis_id'] == '0' && $rs[$i]['cash_pis_id'] == '0' && $rs[$i]['cheque_pis_id'] == '0' && $rs[$i]['sp_name'] == ""){					
+				echo "PIS not generated";}
+				elseif($rs[$i]['sp_name'] == ""){echo "SP Details Empty";} ?>
+				</td>						
+			<?php } ?>						
 			<td width="8%" align="center" valign="top" >
-			<?php echo $rs[$i]['pre_printed_receipt_no']; ?><br />
-						
+				<?php if($rs[$i]['cash_pis_id']=='0' && $rs[$i]['cheque_pis_id']=='0' && $rs[$i]['cash_pis_id']=='0')				
+					{echo "No";}				
+					else				
+					{echo "Yes";}						 
+				?><br />									
 			</td>
-			
+			<td width="8%" align="center" valign="top" ><?php echo date('d/m/Y', strtotime($rs[$i]['business_date'])); ?></td>
 			<td width="8%" align="center" valign="top" ><?php echo stripslashes($branch_name); ?></td>
-			<td width="8%" align="center" valign="top" ><?php echo stripslashes($rs[$i]['plan_name']); ?></td>
-			<td width="8%" align="center" valign="top" ><?php echo date('d/m/Y', strtotime($rs[$i]['business_date'])); ?></td>			
-			<td width="16%" align="center" valign="top" ><?php echo stripslashes($rs[$i]['PROPOSER_NAME']); ?></td>
-			
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['CAMPAIGN'] ?></td>
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['ASTHA_BRANCH_NAME']; ?></td>
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['application_no']; ?></td>			
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['pre_printed_receipt_no']; ?></td>
+			<td width="16%" align="center" valign="top"><?php echo stripslashes($rs[$i]['PROPOSER_NAME']); ?></td>	
+			<td width="8%" align="center" valign="top" ><?php echo stripslashes($rs[$i]['plan_name']); ?></td>						
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['premium_paying_term']; ?></td>
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['term']; ?></td>	
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['sum_asured']; ?></td>
+			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['PAYMENT_MODE']; ?></td>	
 			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['receive_cash']; ?></td>
 			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['receive_cheque']; ?></td>
 			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['receive_draft']; ?></td>
-			
 			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['premium']; ?></td>
-			
-			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['term']; ?></td>
-			
-			
-			<td width="8%" align="center" valign="top" ><?php echo $rs[$i]['sum_asured']; ?></td>
 			<?php if($_SESSION[ROLE_ID] == '1' || $_SESSION[ROLE_ID] == '4'){ ?>
 			<td width="8%" align="center" valign="top" > <a href="javascript:void(0)" onclick="javascript:popUp('<?php echo URL; ?>webadmin/window_edit.php?id=<?php echo base64_encode($mysql_id); ?>')">Edit</td>
 			
